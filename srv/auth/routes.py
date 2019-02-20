@@ -9,22 +9,15 @@ from srv.models import User
  
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
-    #current_app.logger.info('login %s %s',request.method,request.form)
-    if current_user.is_authenticated and login.login_fresh():
-      current_app.logger.info(curren_user.name+'logged')
+    if current_user.is_authenticated:
       return redirect(url_for('main.index'))
-    current_app.config['SQLALCHEMY_BINDS']['supermag'] = 'firebird://nub:0@serv2:3050/e:\\supermag.gdb?charset=utf8'
-    res = db.get_engine(bind='supermag').execute("select name,full_name from users_v")
     form = LoginForm()
-    form.username.choices = [(r.name,r.full_name) for r in res]
-    res.close()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None:
           flash('invalid username or password '+form.username.data)
           return redirect(url_for('auth.login'))
         login_user(user,remember=form.remember_me.data)
-        current_app.config['SQLALCHEMY_BINDS']['supermag'] = 'firebird://'+form.username.data+':'+form.password.data+'@serv2:3050/e:\\supermag.gdb?charset=utf8'
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
           next_page = url_for('main.index')

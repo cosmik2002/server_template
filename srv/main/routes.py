@@ -1,8 +1,10 @@
 from flask import render_template,current_app
 from srv.main import bp
+from flask_login import login_required
 
 @bp.route('/')
 @bp.route('/index')
+@login_required	
 def index():
     user = {'username': 'Эльдар Рязанов'}
     posts = [

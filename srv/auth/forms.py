@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired,ValidationError, Email, EqualTo
 from srv.models import User
 
 class LoginForm(FlaskForm):
-    username = SelectField('Пользователь',validators=[DataRequired()])#StringField('Username', validators=[DataRequired()])
+    username = StringField('Пользователь',validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')

@@ -14,9 +14,6 @@
 {% block navbar %}
 <nav class="navbar navbar-default">
     <a href="{{ url_for('main.index') }}">Home</a>
-    <a href="{{ url_for('main.operations') }}">Operations</a>
-    <a href="{{ url_for('main.log') }}">Log</a>
-    <a href="{{ url_for('main.logSm') }}">LogSm</a>
     {%if current_user.is_anonymous %}
     <a href="{{url_for('auth.login')}}">Login</a>
     {% else %}
