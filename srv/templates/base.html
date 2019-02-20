@@ -1,0 +1,38 @@
+{% extends 'bootstrap/base.html' %}
+{% block scripts %}
+    {{ super() }}
+    {{ moment.include_moment() }}
+    {{ moment.lang('ru') }}
+{% endblock %}
+{% block title %}
+      {% if title %}
+      <title>{{ title }} - Microblog</title>
+      {% else %}
+      <title>Welcome to Microblog</title>
+      {% endif %}
+{% endblock %}
+{% block navbar %}
+<nav class="navbar navbar-default">
+    <a href="{{ url_for('main.index') }}">Home</a>
+    <a href="{{ url_for('main.operations') }}">Operations</a>
+    <a href="{{ url_for('main.log') }}">Log</a>
+    <a href="{{ url_for('main.logSm') }}">LogSm</a>
+    {%if current_user.is_anonymous %}
+    <a href="{{url_for('auth.login')}}">Login</a>
+    {% else %}
+    <a href="{{url_for('auth.logout')}}">Logout</a>
+    {% endif %}
+    </nav>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+             <div class="alert alert-info" role="alert">{{ message }}</div>            
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+     {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}

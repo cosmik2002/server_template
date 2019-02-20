@@ -1,0 +1,7 @@
+FLASK_APP=srv.py
+FLASK_DEBUG=1
+MAIL_SERVER=smtp.mail.ru
+MAIL_PORT=465
+MAIL_USE_TLS=1
+MAIL_USERNAME=nicholas-r@mail.ru
+MAIL_PASSWORD=GthtdjlxbR
