@@ -1,6 +1,8 @@
 from flask import render_template,current_app
 from srv.main import bp
-from flask_login import login_required
+from srv import db
+from flask_login import login_required,current_user
+from datetime import datetime
 
 @bp.route('/')
 @bp.route('/index')
@@ -22,3 +24,9 @@ def index():
         }
     ]
     return render_template('index.html', title='Home', user=user, posts=posts)
+
+@bp.before_app_request
+def before_request():
+ if current_user.is_authenticated:
+     current_user.last_seen = datetime.utcnow()
+     db.session.commit()
